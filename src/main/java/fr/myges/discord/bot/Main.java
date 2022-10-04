@@ -1,21 +1,31 @@
 package fr.myges.discord.bot;
 
+import fr.myges.discord.bot.MyGesClient.Commands.AgendaCmdListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
 
-        String token = System.getenv("TOKEN");
-        if (token == null) {
-            System.out.println("Please provide a token in the TOKEN env var");
-            return;
-        }
+        Config.init();
 
-        JDABuilder builder = JDABuilder.createDefault(token);
+        JDABuilder builder = JDABuilder.createDefault(Config.TOKEN);
         builder.setActivity(net.dv8tion.jda.api.entities.Activity.playing("self development"));
         JDA jda = builder.build();
         jda.awaitReady();
 
+        // init all guilds commands
+        jda.getGuilds().forEach(guild -> {
+            System.out.println("Init commands for guild " + guild.getName());
+            guild.updateCommands().addCommands(
+                Commands.slash("agenda", "Give you the agenda for the week")
+                    .addOption(OptionType.INTEGER, "offset", "Change offset of week from actual date (default 0)", false)
+            ).queue();
+        });
+
+        // register all listeners
+        jda.addEventListener(new AgendaCmdListener());
     }
 }
