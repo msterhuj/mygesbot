@@ -4,6 +4,8 @@ plugins {
 
 group 'fr.myges.discord.bot'
 version '1.0-SNAPSHOT'
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -18,4 +20,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'fr.myges.discord.bot.Main'
+    }
 }
