@@ -14,8 +14,4 @@ WORKDIR /app
 LABEL maintainer="gabin.lanore@netbytes.space"
 COPY --from=builder /app/build/libs/*.jar /app/app.jar
 
-ENV TOKEN=change_me
-ENV USERNAME=please
-ENV PASSWORD=seriously
-
 CMD ["java", "-jar", "app.jar"]
