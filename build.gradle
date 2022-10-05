@@ -3,7 +3,9 @@ plugins {
 }
 
 group 'fr.myges.discord.bot'
-version '1.0-SNAPSHOT'
+version 'DEV-SNAPSHOT'
+compileJava.options.encoding = 'UTF-8'
+def targetJavaVersion = 11
 sourceCompatibility = 11
 targetCompatibility = 11
 
@@ -15,6 +17,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'org.slf4j:slf4j-simple:1.7.32'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
     implementation 'net.dv8tion:JDA:5.0.0-alpha.20'
 
@@ -32,5 +36,30 @@ test {
 jar {
     manifest {
         attributes 'Main-Class': 'fr.myges.discord.bot.Main'
+    }
+    from {
+        configurations.runtimeClasspath.filter { it.exists() }.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    exclude 'META-INF/*'
+    exclude '**/module-info.class'
+}
+
+
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 11 || JavaVersion.current().isJava11Compatible()) {
+        options.release = targetJavaVersion
     }
 }
