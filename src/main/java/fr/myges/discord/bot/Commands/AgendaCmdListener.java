@@ -1,7 +1,8 @@
-package fr.myges.discord.bot.MyGesClient.Commands;
+package fr.myges.discord.bot.Commands;
 
 import fr.myges.discord.bot.Config;
 import fr.myges.discord.bot.DateUtils;
+import fr.myges.discord.bot.EmbedColor;
 import fr.myges.discord.bot.MyGesClient.Models.Course;
 import fr.myges.discord.bot.MyGesClient.Models.Response.AgendaResponse;
 import fr.myges.discord.bot.MyGesClient.Models.Room;
@@ -21,6 +22,7 @@ public class AgendaCmdListener extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("agenda")) {
+            System.out.println("Agenda command received from " + event.getUser().getName() + " on guild " + Objects.requireNonNull(event.getGuild()).getName());
 
             event.deferReply().queue(); // defer reply to avoid timeout
 
@@ -56,6 +58,8 @@ public class AgendaCmdListener extends ListenerAdapter {
                 SimpleDateFormat hourFormat = new SimpleDateFormat("hh:mm", Locale.FRANCE);
                 hourFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
 
+                int now_day_number = DateUtils.getDayNumberFromDate(new Date(System.currentTimeMillis()));
+
                 for (Map.Entry<Integer, ArrayList<Course>> entry : coursesByDay.entrySet()) {
 
                     StringBuilder currentDayString = new StringBuilder();
@@ -66,7 +70,18 @@ public class AgendaCmdListener extends ListenerAdapter {
                         continue;
                     }
 
-                    embed.setTitle(formatDateString.format(new Date(entry.getValue().get(0).getStart_date())));
+                    Date currentLoopDate = entry.getValue().get(0).getStartDate();
+
+                    embed.setTitle(formatDateString.format(currentLoopDate));
+
+                    if (now_day_number == DateUtils.getDayNumberFromDate(currentLoopDate)) {
+                        embed.setColor(EmbedColor.BLUE.getValue());
+                    } else if (now_day_number > DateUtils.getDayNumberFromDate(currentLoopDate)) {
+                        embed.setColor(EmbedColor.RED.getValue());
+                    } else {
+                        embed.setColor(EmbedColor.GREEN.getValue());
+                    }
+
                     for (Course course : currentDayCourses) {
                         currentDayString.append(course.getName());
                         currentDayString.append(" (");

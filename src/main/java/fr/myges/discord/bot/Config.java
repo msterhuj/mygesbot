@@ -10,8 +10,8 @@ public class Config {
     public static void init() {
         ArrayList<String> require_env = new ArrayList<>();
         require_env.add("TOKEN");
-        require_env.add("USERNAME");
-        require_env.add("PASSWORD");
+        require_env.add("GES_USER");
+        require_env.add("GES_PASS");
 
         boolean error = false;
 
@@ -27,7 +27,7 @@ public class Config {
         }
 
         TOKEN = System.getenv("TOKEN");
-        USER = System.getenv("USERNAME");
-        PASS = System.getenv("PASSWORD");
+        USER = System.getenv("GES_USER");
+        PASS = System.getenv("GES_PASS");
     }
 }

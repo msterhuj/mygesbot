@@ -1,8 +1,9 @@
 package fr.myges.discord.bot;
 
-import fr.myges.discord.bot.MyGesClient.Commands.AgendaCmdListener;
+import fr.myges.discord.bot.Commands.AgendaCmdListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
@@ -13,6 +14,7 @@ public class Main {
 
         JDABuilder builder = JDABuilder.createDefault(Config.TOKEN);
         builder.setActivity(net.dv8tion.jda.api.entities.Activity.playing("self development"));
+        builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
         JDA jda = builder.build();
         jda.awaitReady();
 
