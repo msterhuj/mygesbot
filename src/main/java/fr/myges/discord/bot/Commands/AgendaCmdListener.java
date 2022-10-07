@@ -1,13 +1,13 @@
 package fr.myges.discord.bot.Commands;
 
 import fr.myges.discord.bot.Config;
-import fr.myges.discord.bot.DateUtils;
+import fr.myges.discord.api.DateUtils;
 import fr.myges.discord.bot.EmbedColor;
-import fr.myges.discord.bot.MyGesClient.Models.Course;
-import fr.myges.discord.bot.MyGesClient.Models.Response.AgendaResponse;
-import fr.myges.discord.bot.MyGesClient.Models.Room;
-import fr.myges.discord.bot.MyGesClient.MyGesClient;
-import fr.myges.discord.bot.MyGesClient.WeekBuilder;
+import fr.myges.discord.api.Models.Course;
+import fr.myges.discord.api.Models.Response.AgendaResponse;
+import fr.myges.discord.api.Models.Room;
+import fr.myges.discord.api.MyGesClient;
+import fr.myges.discord.api.TimeBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -35,7 +35,7 @@ public class AgendaCmdListener extends ListenerAdapter {
                 } catch (NullPointerException e) {
                     offset = 0;
                 }
-                ArrayList<Long> weekRange = WeekBuilder.getWeekRange(offset);
+                ArrayList<Long> weekRange = TimeBuilder.getWeekRangeTimestamp(offset);
 
                 // get data
                 MyGesClient client = new MyGesClient();

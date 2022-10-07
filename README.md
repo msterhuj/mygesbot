@@ -7,6 +7,8 @@ Bot discord pour faire interface entre l'api myges et discord
 ## 📰 Features
 
 - [x] Lister les cours *avec index pour chercher les prochaine semaine de cours*
+- [ ] Commands pour voir les cours du lendemain (wip)
+- [ ] Commands pour la prochaine semaine de cours (wip)
 - [ ] Genere un ics pour les cours
 - [ ] Auto sync des fichiers de cours
 - [ ] System de rappel pour devoir/interrogation
@@ -14,9 +16,6 @@ Bot discord pour faire interface entre l'api myges et discord
 > Je suis open a toute suggestion
 
 ## 🔨 Build
-
-> Le build ne marche pas encore jai pas encore fini de setup gradle
-> Contactez moi si vous avez la fleme de le build je vous partagerais le jar
 
 ### 🔩 Bare metal
 
