@@ -1,4 +1,4 @@
-package fr.myges.discord.bot.MyGesClient.Models;
+package fr.myges.discord.api.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

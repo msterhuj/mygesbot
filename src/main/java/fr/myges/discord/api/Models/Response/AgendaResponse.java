@@ -1,7 +1,7 @@
-package fr.myges.discord.bot.MyGesClient.Models.Response;
+package fr.myges.discord.api.Models.Response;
 
-import fr.myges.discord.bot.DateUtils;
-import fr.myges.discord.bot.MyGesClient.Models.Course;
+import fr.myges.discord.api.DateUtils;
+import fr.myges.discord.api.Models.Course;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +22,10 @@ public class AgendaResponse {
     private String version;
     private ArrayList<Course> result;
 
+    /**
+     * Return cleaned data
+     * @return HashMap<Integer, ArrayList<Course>>
+     */
     public HashMap<Integer, ArrayList<Course>> getCoursesByDay() {
 
         HashMap<Integer, ArrayList<Course>> coursesByDay = new HashMap<>();

@@ -1,4 +1,4 @@
-package fr.myges.discord.bot.MyGesClient;
+package fr.myges.discord.api;
 
 import java.net.URI;
 

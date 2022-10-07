@@ -1,4 +1,4 @@
-package fr.myges.discord.bot;
+package fr.myges.discord.api;
 
 import java.sql.Date;
 import java.util.Calendar;
