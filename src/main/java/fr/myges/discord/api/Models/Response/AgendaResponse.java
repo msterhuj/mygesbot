@@ -8,10 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Data
 @Builder
@@ -30,7 +27,10 @@ public class AgendaResponse {
 
         HashMap<Integer, ArrayList<Course>> coursesByDay = new HashMap<>();
 
-        for (Course course : this.result) {
+        ArrayList<Course> courses = this.result;
+        courses.sort(Comparator.comparingLong(Course::getStart_date));
+
+        for (Course course : courses) {
             int dayNumber = DateUtils.getDayNumberFromDate(new Date(course.getStart_date()));
             if (coursesByDay.containsKey(dayNumber)) {
                 coursesByDay.get(dayNumber).add(course);
